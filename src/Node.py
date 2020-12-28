@@ -21,21 +21,17 @@ class Node:
         return self.__c_to_me
 
     def add_ni(self, other_node, weight: float):
-        if type(other_node) != Node:
-            return
-        if Node.get_key(other_node) not in self.__nei:  # להסביר לטל למה עשיתי ככה
-            self.__nei[other_node] = weight
-            Node.add_to_me(other_node, self.get_key(), weight)
+        if Node.get_key(other_node) not in self.__nei.keys():  # להסביר לטל למה עשיתי ככה
+            self.__nei[Node.get_key(other_node)] = weight
+            Node.add_to_me(other_node, self, weight)
 
-    def add_to_me(self, other_key: int, weight: float):
-        self.__c_to_me[other_key] = weight
+    def add_to_me(self, other_node, weight: float):
+        self.__c_to_me[Node.get_key(other_node)] = weight
 
     def remove_ni(self, other_node):
-        if type(other_node) != Node:
-            return
-        if Node.get_key(other_node) in self.__nei:
-            del self.__nei[other_node]
-            Node.del_from_me(other_node, self.get_key())
+        if Node.get_key(other_node) in self.__nei.keys():
+            del self.__nei[Node.get_key(other_node)]
+            Node.del_from_me(other_node, self)
 
-    def del_from_me(self, other_key: int):
-        del self.__c_to_me[other_key]
+    def del_from_me(self, other_node):
+        del self.__c_to_me[Node.get_key(other_node)]
