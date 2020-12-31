@@ -142,14 +142,44 @@ class TestDiGraph(TestCase):
 
 
     def test_all_in_edges_of_node(self): #להשלים
-        graph = self.graph_creator(10, 20)
-        n = []
-        # for ed in graph.get_node(1).get_c_tome().values():
-        #     n.append(ed)
-        # d = graph.all_in_edges_of_node(1)
+        graph = self.graph_creator(5, 6)
+        g = DiGraph()
+        g.add_node(0)
+        g.add_node(1)
+        g.add_node(2)
+        g.add_node(3)
+        g.add_node(4)
+        g.add_edge(1, 0, 4)
+        g.add_edge(0, 2, 4)
+        g.add_edge(0, 3, 4)
+        g.add_edge(4, 0, 4)
+        g.add_edge(2, 0, 4)
+        g.add_edge(1, 4, 4)
+        for i in range(5):
+            f = graph.all_in_edges_of_node(i).keys()
+            p = g.all_in_edges_of_node(i).keys()
+            for k in f:
+                self.assertIn(k, p)
 
-    def test_all_out_edges_of_node(self): #להשלים
-        pass
+    def test_all_out_edges_of_node(self):
+        graph = self.graph_creator(5, 6)
+        g = DiGraph()
+        g.add_node(0)
+        g.add_node(1)
+        g.add_node(2)
+        g.add_node(3)
+        g.add_node(4)
+        g.add_edge(1, 0, 4)
+        g.add_edge(0, 2, 4)
+        g.add_edge(0, 3, 4)
+        g.add_edge(4, 0, 4)
+        g.add_edge(2, 0, 4)
+        g.add_edge(1, 4, 4)
+        for i in range(5):
+            f = graph.all_out_edges_of_node(i).keys()
+            p = g.all_out_edges_of_node(i).keys()
+            for k in f:
+                self.assertIn(k, p)
 
     def test_v_size(self):
         graph = self.graph_creator(10, 20)
