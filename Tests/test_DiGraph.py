@@ -125,9 +125,10 @@ class TestDiGraph(TestCase):
         try:
             graph.get_node(8)
             # we shouldn't get to the line below
+            print("you failed sucker")
             self.fail()
         except:
-            print("you passed the test")
+            print("you passed the test0")
 
     def test_get_all_v(self):
         graph = self.graph_creator(10, 20)
