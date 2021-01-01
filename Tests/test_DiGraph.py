@@ -4,6 +4,8 @@ from unittest import TestCase
 from DiGraph import DiGraph
 from random import randrange
 
+from GraphAlgo import GraphAlgo
+
 
 class TestDiGraph(TestCase):
 
@@ -222,3 +224,8 @@ class TestDiGraph(TestCase):
         self.assertEqual(num, graph.get_mc())
         graph.add_node(8915)
         self.assertEqual(num, graph.get_mc())
+
+    def test_encoder(self):
+        graph = self.graph_creator(10, 20)
+        G = GraphAlgo(graph)
+        G.save_to_json("hello.txt")

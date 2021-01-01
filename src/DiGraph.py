@@ -4,8 +4,9 @@ from Node import Node
 
 class DiGraph(GraphInterface):
 
-    def __init__(self):
-        self.nodes = {int: Node}
+    def __init__(self, **args):
+        # self.nodes = {int: Node}
+        self.nodes = {}
         self.num_of_ed = 0
         self.mode_count = 0
 
@@ -36,7 +37,7 @@ class DiGraph(GraphInterface):
             return False
         Node.remove_ni(self.nodes[node_id1], self.nodes[node_id2])
         self.mode_count = self.mode_count + 1
-        self.num_of_ed= self.num_of_ed-1
+        self.num_of_ed = self.num_of_ed - 1
         return True
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
@@ -62,10 +63,14 @@ class DiGraph(GraphInterface):
         return Node.get_ni(self.nodes[id])
 
     def v_size(self) -> int:
-        return len(self.nodes)-1
+        return len(self.nodes) - 1
 
     def e_size(self) -> int:
         return self.num_of_ed
 
     def get_mc(self) -> int:
         return self.mode_count
+
+    def encoder(self, o):
+        print(o.__dict__)
+        return o.__dict__

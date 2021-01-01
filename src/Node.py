@@ -1,7 +1,8 @@
-class Node:
+
+class Node(object):
     random_key = 0
 
-    def __init__(self, key: int = random_key, pos: tuple = None):
+    def __init__(self, key: int = random_key, pos: tuple = None, **args):
         self.random_key = self.random_key + 1
         self.__key = key
         self.__nei = {}
@@ -35,3 +36,10 @@ class Node:
 
     def del_from_me(self, other_node):
         del self.__c_to_me[Node.get_key(other_node)]
+
+    # def __dict__(self):
+    #     return {"id": self.__key, "pos": self.__pos}
+
+    def __repr__(self):
+        return f"repr: id:{self.__key}, pos:{self.__pos}"
+
