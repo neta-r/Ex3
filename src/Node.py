@@ -1,4 +1,3 @@
-
 class Node(object):
     random_key = 0
 
@@ -8,9 +7,30 @@ class Node(object):
         self.__nei = {}
         self.__c_to_me = {}
         self.__pos = pos
+        self.__tag = -1
+        self.__is_vis = False
+        self.__pred = None
 
     def get_key(self) -> int:
         return self.__key
+
+    def get_tag(self) -> int:
+        return self.__tag
+
+    def set_tag(self, tag):
+        self.__tag = tag
+
+    def get_pred(self):
+        return self.__pred
+
+    def set_pred(self, pred):
+        self.__pred = pred
+
+    def get_is_vis(self) -> bool:
+        return self.__is_vis
+
+    def set_is_vis(self, is_vis):
+        self.__is_vis = is_vis
 
     def get_pos(self) -> [tuple]:
         return self.__pos
@@ -39,7 +59,23 @@ class Node(object):
 
     # def __dict__(self):
     #     return {"id": self.__key, "pos": self.__pos}
+    def __str__(self):
+        return f"str: id:{self.__key}, pos:{self.__pos}"
 
     def __repr__(self):
         return f"repr: id:{self.__key}, pos:{self.__pos}"
-
+    #
+    # def __lt__(self, other):
+    #     return self.__tag <= Node.get_tag(other)
+    #
+    # def __cmp__(self, other):
+    #     if self.__tag == Node.get_tag(other):
+    #         return 0
+    #     if self.__tag > Node.get_tag(other):
+    #         return 1
+    #     return -1
+    #
+    # def __eq__(self, other):
+    #     if self.get_tag() == Node.get_tag(other):
+    #         return True
+    #     return False

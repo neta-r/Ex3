@@ -13,10 +13,10 @@ class TestDiGraph(TestCase):
         seed(1)
         graph = DiGraph()
         i = 0
-        while (i < num_of_nodes):
+        while i < num_of_nodes:
             graph.add_node(i)
             i = i + 1
-        while (graph.e_size() < num_of_ed):
+        while graph.e_size() < num_of_ed:
             rnd = randrange(0, num_of_nodes)
             rnd2 = randrange(0, num_of_nodes)
             rnd3 = random()
@@ -127,10 +127,9 @@ class TestDiGraph(TestCase):
         try:
             graph.get_node(8)
             # we shouldn't get to the line below
-            print("you failed sucker")
             self.fail()
         except:
-            print("you passed the test0")
+            print("you passed the test")
 
     def test_get_all_v(self):
         graph = self.graph_creator(10, 20)

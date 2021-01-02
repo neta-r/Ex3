@@ -57,13 +57,13 @@ class DiGraph(GraphInterface):
         return self.nodes
 
     def all_in_edges_of_node(self, id1: int) -> dict:
-        return Node.get_c_tome(self.nodes[id])
+        return Node.get_c_tome(self.nodes[id1])
 
     def all_out_edges_of_node(self, id1: int) -> dict:
-        return Node.get_ni(self.nodes[id])
+        return Node.get_ni(self.nodes[id1])
 
     def v_size(self) -> int:
-        return len(self.nodes) - 1
+        return len(self.nodes)
 
     def e_size(self) -> int:
         return self.num_of_ed
