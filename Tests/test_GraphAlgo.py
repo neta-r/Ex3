@@ -23,6 +23,11 @@ class test_GraphAlgo(TestCase):
         graph = self.graph_creator(10, 20)
         algo_g = GraphAlgo(graph)
         algo_g.save_to_json("testing.txt")
+        algo_g2 = GraphAlgo()
+        algo_g2.load_from_json("testing.txt")
+        self.assertEqual(algo_g.graph, algo_g2.graph)
+        algo_g.graph.remove_node(5)
+        self.assertNotEqual(algo_g.graph, algo_g2.graph)
 
     def test_shortest_path(self):
         graph = self.graph_creator(10, 20)

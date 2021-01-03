@@ -10,22 +10,33 @@ from Tarjan import Tarjan
 
 class GraphAlgo(GraphAlgoInterface):
 
-    def __init__(self, graph):
+    def __init__(self, graph=None):
         self.graph: DiGraph = graph
 
     def get_graph(self) -> GraphInterface:
-
         return self.graph
 
     def load_from_json(self, file_name: str) -> bool:
-        pass
+        gr = DiGraph()
+        try:
+            with open(file_name, "r") as f:
+                dict_graph = json.load(f)
+                for dic in dict_graph["Nodes"]:
+                    gr.add_node(dic["id"], dic["pos"])
+                for dic in dict_graph["Edges"]:
+                    gr.add_edge(id1=dic["src"], id2=dic["dest"], weight=dic["w"])
+        except IOError as e:
+            print(e)
+            return False
+        self.graph = gr
+        return True
 
     def encoder(self, o):
         DiGraph.encoder(self.graph, o)
 
-    def save_graph(self):
+    def decoder(self):
         gp_dict = {"Edges": [],
-                   'Nodes': [Node.encoder(node) for node in list(self.graph.get_all_v().values())]}
+                   "Nodes": [Node.encoder(node) for node in list(self.graph.get_all_v().values())]}
         for nd in self.graph.nodes.keys():
             for dest, wei in self.graph.all_out_edges_of_node(nd).items():
                 gp_dict["Edges"].append({"src": nd, "w": wei, "dest": dest})
@@ -34,7 +45,7 @@ class GraphAlgo(GraphAlgoInterface):
     def save_to_json(self, file_name: str) -> bool:
         try:
             with open(file_name, "w") as f:
-                json.dump(self.save_graph(), fp=f, indent=4)
+                json.dump(self.decoder(), fp=f, indent=4)
                 return True
         except IOError as e:
             print(e)
@@ -107,3 +118,10 @@ class GraphAlgo(GraphAlgoInterface):
         for nd in self.graph.nodes.values():
             Node.set_tag(nd, -1)
             Node.set_is_vis(nd, False)
+
+    def __eq__(self, other):
+        if type(other) is not GraphAlgo:
+            return False
+        if self.graph.__eq__(GraphAlgo.get_graph(other)):
+            return True
+        return False

@@ -1,7 +1,7 @@
 class Node(object):
     random_key = 0
 
-    def __init__(self, key: int = random_key, pos: tuple = None, **args):
+    def __init__(self, key: int = random_key, pos: tuple = None):
         self.random_key = self.random_key + 1
         self.__key = key
         self.__nei = {}
@@ -68,5 +68,24 @@ class Node(object):
     def encoder(self):
         return {
             'id': self.get_key(),
-            'pos': self.__pos.__str__()
+            'pos': self.__pos
         }
+
+    def __eq__(self, other):
+        if type(other) is not Node:
+            return False
+        if Node.get_key(other) != self.__key:
+            return False
+        if self.__pos != Node.get_pos(other):
+            return False
+        for nei, wei in self.__nei.items():
+            if nei not in Node.get_ni(other):
+                return False
+            if Node.get_ni(other)[nei] != wei:
+                return False
+        for nei, wei in self.__c_to_me.items():
+            if nei not in Node.get_c_tome(other):
+                return False
+            if Node.get_c_tome(other)[nei] != wei:
+                return False
+        return True

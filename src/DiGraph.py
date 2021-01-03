@@ -4,8 +4,7 @@ from Node import Node
 
 class DiGraph(GraphInterface):
 
-    def __init__(self, **args):
-        # self.nodes = {int: Node}
+    def __init__(self):
         self.nodes = {}
         self.num_of_ed = 0
         self.mode_count = 0
@@ -74,3 +73,20 @@ class DiGraph(GraphInterface):
     def encoder(self, o):
         print(o.__dict__)
         return o.__dict__
+
+    def __eq__(self, other):
+        if type(other) is not DiGraph:
+            return False
+        if self.e_size() != DiGraph.e_size(other):
+            return False
+        if self.v_size() != DiGraph.v_size(other):
+            return False
+        if self.get_mc() != DiGraph.get_mc(other):
+            return False
+        for nd in self.nodes.values():
+            if Node.get_key(nd) not in DiGraph.get_all_v(other).keys():
+                return False
+            other_v = DiGraph.get_node(other, Node.get_key(nd))
+            if not Node.__eq__(nd, other_v):
+                return False
+        return True
