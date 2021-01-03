@@ -23,10 +23,18 @@ class GraphAlgo(GraphAlgoInterface):
     def encoder(self, o):
         DiGraph.encoder(self.graph, o)
 
+    def save_graph(self):
+        gp_dict = {"Edges": [],
+                   'Nodes': [Node.encoder(node) for node in list(self.graph.get_all_v().values())]}
+        for nd in self.graph.nodes.keys():
+            for dest, wei in self.graph.all_out_edges_of_node(nd).items():
+                gp_dict["Edges"].append({"src": nd, "w": wei, "dest": dest})
+        return gp_dict
+
     def save_to_json(self, file_name: str) -> bool:
         try:
-            with open(file_name, "w") as fp:
-                json.dump(self.graph.nodes, default=self.encoder, fp=fp, indent=4)
+            with open(file_name, "w") as f:
+                json.dump(self.save_graph(), fp=f, indent=4)
                 return True
         except IOError as e:
             print(e)

@@ -64,18 +64,9 @@ class Node(object):
 
     def __repr__(self):
         return f"repr: id:{self.__key}, pos:{self.__pos}"
-    #
-    # def __lt__(self, other):
-    #     return self.__tag <= Node.get_tag(other)
-    #
-    # def __cmp__(self, other):
-    #     if self.__tag == Node.get_tag(other):
-    #         return 0
-    #     if self.__tag > Node.get_tag(other):
-    #         return 1
-    #     return -1
-    #
-    # def __eq__(self, other):
-    #     if self.get_tag() == Node.get_tag(other):
-    #         return True
-    #     return False
+
+    def encoder(self):
+        return {
+            'id': self.get_key(),
+            'pos': self.__pos.__str__()
+        }
