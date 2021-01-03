@@ -19,6 +19,11 @@ class test_GraphAlgo(TestCase):
             graph.add_edge(rnd, rnd2, rnd3 * 100)
         return graph
 
+    def test_save_to_json(self):
+        graph = self.graph_creator(10, 20)
+        algo_g = GraphAlgo(graph)
+        algo_g.save_to_json("testing.txt")
+
     def test_shortest_path(self):
         graph = self.graph_creator(10, 20)
         algo_g = GraphAlgo(graph)
