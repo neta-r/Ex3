@@ -1,11 +1,11 @@
 import json
-from queue import PriorityQueue
 from typing import List
 import heapq
 import GraphInterface
 from DiGraph import DiGraph
 from GraphAlgoInterface import GraphAlgoInterface
 from Node import Node
+from Tarjan import Tarjan
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -59,10 +59,20 @@ class GraphAlgo(GraphAlgoInterface):
         return dist, path
 
     def connected_component(self, id1: int) -> list:
-        pass
+        if self.graph is None:
+            return []
+        if id1 not in self.graph.nodes.keys():
+            return []
+        self.reset_t()
+        t = Tarjan(self.graph, self.graph.get_node(id1))
+        return t.get_nds_comp()
 
     def connected_components(self) -> List[list]:
-        pass
+        if self.graph is None:
+            return []
+        self.reset_t()
+        t = Tarjan(self.graph)
+        return t.get_components()
 
     def plot_graph(self) -> None:
         pass
@@ -91,4 +101,9 @@ class GraphAlgo(GraphAlgoInterface):
         for nd in self.graph.nodes.values():
             Node.set_tag(nd, float('inf'))
             Node.set_pred(nd, None)
+            Node.set_is_vis(nd, False)
+
+    def reset_t(self):
+        for nd in self.graph.nodes.values():
+            Node.set_tag(nd, -1)
             Node.set_is_vis(nd, False)

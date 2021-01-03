@@ -46,3 +46,43 @@ class test_GraphAlgo(TestCase):
         # non existed node
         self.assertEqual(ans, algo_g.shortest_path(81, 7))
         self.assertEqual(ans, algo_g.shortest_path(7, 81))
+
+    def test_connected_component(self):
+        graph = self.graph_creator(10, 20)
+        algo_g = GraphAlgo(None)
+        ans = []
+        self.assertEqual(ans, algo_g.connected_component(89))
+        algo_g = GraphAlgo(graph)
+        # non exiting node
+        self.assertEqual(ans, algo_g.connected_component(89))
+        ans = [2]
+        self.assertEqual(ans, algo_g.connected_component(2))
+        ans = [6, 8, 7, 0]
+        self.assertEqual(ans, algo_g.connected_component(6))
+        ans = [9]
+        self.assertEqual(ans, algo_g.connected_component(9))
+        graph.add_edge(3, 6, 7)
+        ans = [3, 6, 8, 7, 0]
+        self.assertEqual(ans, algo_g.connected_component(3))
+
+    def test_connected_components(self):
+        graph = self.graph_creator(10, 20)
+        algo_g = GraphAlgo(None)
+        ans = []
+        self.assertEqual(ans, algo_g.connected_components())
+        algo_g = GraphAlgo(graph)
+        ans = [[9], [2], [1, 4], [3], [6, 8, 7, 0], [5]]
+        self.assertEqual(ans, algo_g.connected_components())
+        graph.add_edge(3, 6, 7)
+        ans = [[9], [2], [1, 4], [3, 6, 8, 7, 0], [5]]
+        self.assertEqual(ans, algo_g.connected_components())
+        graph.add_edge(9, 2, 7)
+        ans = [[9, 2], [1, 4], [3, 6, 8, 7, 0], [5]]
+        self.assertEqual(ans, algo_g.connected_components())
+        graph.add_edge(2, 1, 7)
+        ans = [[9, 2, 1, 4], [3, 6, 8, 7, 0], [5]]
+        self.assertEqual(ans, algo_g.connected_components())
+        graph.add_edge(1, 5, 7)
+        ans = [[8, 6, 3, 5, 9, 2, 1, 4, 7, 0]]
+        self.assertEqual(ans, algo_g.connected_components())
+
