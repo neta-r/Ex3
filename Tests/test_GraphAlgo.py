@@ -98,6 +98,5 @@ class test_GraphAlgo(TestCase):
         Node.set_pos(graph.nodes.get(2), 2, 5)
         Node.set_pos(graph.nodes.get(8), 8, 7.41)
         Node.set_pos(graph.nodes.get(1), 10, 10)
-        Node.set_pos(graph.nodes.get(5), 15, 10)
         algo_g = GraphAlgo(graph)
         algo_g.plot_graph()

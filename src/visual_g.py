@@ -1,5 +1,5 @@
 import heapq
-
+from queue import PriorityQueue
 from DiGraph import DiGraph
 from Node import Node
 import matplotlib.pyplot as plt
@@ -9,8 +9,8 @@ class visual_g:
     def __init__(self, graph: DiGraph):
         self.graph = graph
         self.left = []
-        self.xq = []
-        self.yq = []
+        self.xq = PriorityQueue()
+        self.yq = PriorityQueue()
         self.org()
 
     def org(self):
@@ -47,34 +47,28 @@ class visual_g:
     def mk_q(self, xc: list, yc: list):
         for i in range(len(xc) - 1):
             cur = cor(xc[i], xc[i + 1])
-            heapq.heappush(self.xq, cur)
+            self.xq.put((cur.dist, cur))
             cur = cor(yc[i], yc[i + 1])
-            heapq.heappush(self.yq, cur)
-        heapq.heapify(self.xq)
-        print(cor.get_dist(self.xq.pop()))
-        print(cor.get_dist(self.xq.pop()))
-        print(cor.get_dist(self.xq.pop()))
-        print(cor.get_dist(self.xq.pop()))
+            self.yq.put((cur.dist, cur))
         self.rnd_mk()
 
     def rnd_mk(self):
-        x = 0
-        y = 0
         while len(self.left):
             nod: Node = self.left.pop()
-            cur: cor = self.xq.pop()[1]
+            cur: cor = self.xq.get()[1]
             x = cur.coor1 + (cur.dist / 2)
             f = cor(cur.coor1, x)
-            heapq.heappush(self.xq, (f.dist, f))
+            self.xq.put((f.dist, f))
             f = cor(x, cur.coor2)
-            heapq.heappush(self.xq, (f.dist, f))
-            cur = self.yq.pop()[1]
+            self.xq.put((f.dist, f))
+            cur = self.yq.get()[1]
             y = cur.coor1 + (cur.dist / 2)
             f = cor(cur.coor1, y)
-            heapq.heappush(self.yq, (f.dist, f))
+            self.xq.put((f.dist, f))
             f = cor(y, cur.coor2)
-            heapq.heappush(self.yq, (f.dist, f))
+            self.xq.put((f.dist, f))
             nod.set_pos(x, y)
+            print(f"node {nod.get_key()} is locate in {nod.get_pos()}")
 
 
 class cor:
@@ -86,10 +80,10 @@ class cor:
     def get_dist(self):
         return self.dist
 
-    def __lt__(self, other):
-        if self.dist == cor.get_dist(other):
-            return 1
-        return cor.get_dist(other) > self.dist
+    # def __lt__(self, other):
+    #     # if self.dist == cor.get_dist(other):
+    #     #     return 1
+    #     return self.dist < cor.get_dist(other)
 
     def __eq__(self, other):
         if self.dist == cor.get_dist(other):
