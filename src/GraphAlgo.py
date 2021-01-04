@@ -5,7 +5,8 @@ import GraphInterface
 from DiGraph import DiGraph
 from GraphAlgoInterface import GraphAlgoInterface
 from Node import Node
-from Tarjan import Tarjan
+from sp_algo import sp_algo
+from visual_g import visual_g
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -31,10 +32,7 @@ class GraphAlgo(GraphAlgoInterface):
         self.graph = gr
         return True
 
-    def encoder(self, o):
-        DiGraph.encoder(self.graph, o)
-
-    def decoder(self):
+    def encoder(self):
         gp_dict = {"Edges": [],
                    "Nodes": [Node.encoder(node) for node in list(self.graph.get_all_v().values())]}
         for nd in self.graph.nodes.keys():
@@ -45,7 +43,7 @@ class GraphAlgo(GraphAlgoInterface):
     def save_to_json(self, file_name: str) -> bool:
         try:
             with open(file_name, "w") as f:
-                json.dump(self.decoder(), fp=f, indent=4)
+                json.dump(self.encoder(), fp=f, indent=4)
                 return True
         except IOError as e:
             print(e)
@@ -58,15 +56,13 @@ class GraphAlgo(GraphAlgoInterface):
         if id1 not in DiGraph.get_all_v(self.graph).keys() or id2 not in DiGraph.get_all_v(self.graph).keys():
             return float('inf'), []
         dest: Node = DiGraph.get_node(self.graph, id2)
-        self.dijkstra(DiGraph.get_node(self.graph, id1), dest)
+        sp_algo.dijkstra(self.graph, DiGraph.get_node(self.graph, id1), dest)
         dist = dest.get_tag()
         while dest.get_pred() is not None:
             path.insert(0, dest.get_key())
             dest = dest.get_pred()
         if dist != float('inf'):
             path.insert(0, dest.get_key())
-        # if DiGraph.get_node(self.graph, id1) not in path:
-        #     return float('inf'), []
         return dist, path
 
     def connected_component(self, id1: int) -> list:
@@ -74,50 +70,17 @@ class GraphAlgo(GraphAlgoInterface):
             return []
         if id1 not in self.graph.nodes.keys():
             return []
-        self.reset_t()
-        t = Tarjan(self.graph, self.graph.get_node(id1))
+        t = sp_algo.Tarjan(self.graph, self.graph.get_node(id1))
         return t.get_nds_comp()
 
     def connected_components(self) -> List[list]:
         if self.graph is None:
             return []
-        self.reset_t()
-        t = Tarjan(self.graph)
+        t = sp_algo.Tarjan(self.graph)
         return t.get_components()
 
     def plot_graph(self) -> None:
-        pass
-
-    def dijkstra(self, src: Node, dest: Node):
-        self.reset_d()
-        src.set_tag(0)
-        q = []
-        for nd in self.graph.nodes.values():
-            heapq.heappush(q, (Node.get_tag(nd), Node.get_key(nd), nd))
-        while len(q) != 0:
-            cur: Node = heapq.heappop(q)[2]
-            for ni, ed in Node.get_ni(cur).items():
-                ni_node: Node = DiGraph.get_node(self.graph, ni)
-                if not ni_node.get_is_vis():
-                    dis = Node.get_tag(cur) + ed
-                    if Node.get_tag(ni_node) > dis:
-                        Node.set_tag(ni_node, dis)
-                        Node.set_pred(ni_node, cur)
-                        heapq.heapify(q)
-            if cur.get_key() == dest.get_key():
-                return
-            cur.set_is_vis(True)
-
-    def reset_d(self):
-        for nd in self.graph.nodes.values():
-            Node.set_tag(nd, float('inf'))
-            Node.set_pred(nd, None)
-            Node.set_is_vis(nd, False)
-
-    def reset_t(self):
-        for nd in self.graph.nodes.values():
-            Node.set_tag(nd, -1)
-            Node.set_is_vis(nd, False)
+        a = visual_g(self.graph)
 
     def __eq__(self, other):
         if type(other) is not GraphAlgo:

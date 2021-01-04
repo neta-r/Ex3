@@ -2,6 +2,8 @@ from unittest import TestCase
 from random import seed, randrange, random
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
+from Node import Node
+
 
 class test_GraphAlgo(TestCase):
 
@@ -19,7 +21,7 @@ class test_GraphAlgo(TestCase):
             graph.add_edge(rnd, rnd2, rnd3 * 100)
         return graph
 
-    def test_save_to_json(self):
+    def test_save_and_load(self):
         graph = self.graph_creator(10, 20)
         algo_g = GraphAlgo(graph)
         algo_g.save_to_json("testing.txt")
@@ -91,3 +93,11 @@ class test_GraphAlgo(TestCase):
         ans = [[8, 6, 3, 5, 9, 2, 1, 4, 7, 0]]
         self.assertEqual(ans, algo_g.connected_components())
 
+    def test_plot_graph(self):
+        graph = self.graph_creator(10, 20)
+        Node.set_pos(graph.nodes.get(2), 2, 5)
+        Node.set_pos(graph.nodes.get(8), 8, 7.41)
+        Node.set_pos(graph.nodes.get(1), 10, 10)
+        Node.set_pos(graph.nodes.get(5), 15, 10)
+        algo_g = GraphAlgo(graph)
+        algo_g.plot_graph()

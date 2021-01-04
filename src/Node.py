@@ -35,6 +35,9 @@ class Node(object):
     def get_pos(self) -> [tuple]:
         return self.__pos
 
+    def set_pos(self, x, y):
+        self.__pos = (x, y, 0)
+
     def get_ni(self):
         return self.__nei
 
