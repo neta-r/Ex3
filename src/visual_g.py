@@ -12,6 +12,7 @@ class visual_g:
         self.xq = PriorityQueue()
         self.yq = PriorityQueue()
         self.org()
+        self.paint()
 
     def org(self):
         xc = []
@@ -39,10 +40,6 @@ class visual_g:
         if len(self.left) == 0:
             return
         self.mk_q(xc, yc)
-        # if self.left.__sizeof__() == self.graph.v_size():
-        #     pass
-        # else:
-        #     pass
 
     def mk_q(self, xc: list, yc: list):
         for i in range(len(xc) - 1):
@@ -68,7 +65,37 @@ class visual_g:
             f = cor(y, cur.coor2)
             self.xq.put((-f.dist, f))
             nod.set_pos(x, y)
-            print(f"node {nod.get_key()} is locate in {nod.get_pos()}")
+
+    def paint(self):
+        x = []
+        y = []
+        ax = plt.axes()
+        # plt.figure(figsize=(10, 10))
+        for node in self.graph.nodes.values():
+            x.append(node.get_pos()[0])
+            y.append(node.get_pos()[1])
+            # for ed in self.graph.all_out_edges_of_node(node.get_key()).keys():
+            #     desti: Node = self.graph.get_node(ed)
+            #     plt.arrow(node.get_pos()[0], node.get_pos()[1], desti.get_pos()[0], desti.get_pos()[1])
+        ax.scatter(x, y, color="red", s=50)
+        clr = ['black', 'magenta', 'aquamarine', 'green', 'yellow']
+        xl = ax.get_xlim()[1] - ax.get_xlim()[0]
+        yl = ax.get_ylim()[1] - ax.get_ylim()[0]
+        i = 0
+        for nd in self.graph.nodes.values():
+            for ed in self.graph.all_out_edges_of_node(Node.get_key(nd)).keys():
+                desti: Node = self.graph.get_node(ed)
+                destx = desti.get_pos()[0] - nd.get_pos()[0]
+                desty = desti.get_pos()[1] - nd.get_pos()[1]
+                ax.arrow(nd.get_pos()[0], nd.get_pos()[1], destx, desty, head_width=xl * 0.01,
+                         length_includes_head=True,
+                         head_length=yl * 0.02, width=xl * 0.1 * yl, color='black')
+                i += 1
+                if i == 4:
+                    i = 0
+        plt.title("Your graph!")
+        # plt.plot(x,y)
+        plt.show()
 
 
 class cor:
@@ -80,17 +107,6 @@ class cor:
     def get_dist(self):
         return self.dist
 
-    # def __lt__(self, other):
-    #     # if self.dist == cor.get_dist(other):
-    #     #     return 1
-    #     if self.dist >= cor.get_dist(other):
-    #         return -1
-    #     else:
-    #         return 1
-    #     return self.dist > cor.get_dist(other)
-
-    # def __le__(self,other):
-    #
     def __eq__(self, other):
         if self.dist == cor.get_dist(other):
             return True
