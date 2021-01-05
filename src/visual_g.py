@@ -47,9 +47,9 @@ class visual_g:
     def mk_q(self, xc: list, yc: list):
         for i in range(len(xc) - 1):
             cur = cor(xc[i], xc[i + 1])
-            self.xq.put((cur.dist, cur))
+            self.xq.put((-cur.dist, cur))
             cur = cor(yc[i], yc[i + 1])
-            self.yq.put((cur.dist, cur))
+            self.yq.put((-cur.dist, cur))
         self.rnd_mk()
 
     def rnd_mk(self):
@@ -58,15 +58,15 @@ class visual_g:
             cur: cor = self.xq.get()[1]
             x = cur.coor1 + (cur.dist / 2)
             f = cor(cur.coor1, x)
-            self.xq.put((f.dist, f))
+            self.xq.put((-f.dist, f))
             f = cor(x, cur.coor2)
-            self.xq.put((f.dist, f))
+            self.yq.put((-f.dist, f))
             cur = self.yq.get()[1]
             y = cur.coor1 + (cur.dist / 2)
             f = cor(cur.coor1, y)
-            self.xq.put((f.dist, f))
+            self.xq.put((-f.dist, f))
             f = cor(y, cur.coor2)
-            self.xq.put((f.dist, f))
+            self.xq.put((-f.dist, f))
             nod.set_pos(x, y)
             print(f"node {nod.get_key()} is locate in {nod.get_pos()}")
 
@@ -83,8 +83,14 @@ class cor:
     # def __lt__(self, other):
     #     # if self.dist == cor.get_dist(other):
     #     #     return 1
-    #     return self.dist < cor.get_dist(other)
+    #     if self.dist >= cor.get_dist(other):
+    #         return -1
+    #     else:
+    #         return 1
+    #     return self.dist > cor.get_dist(other)
 
+    # def __le__(self,other):
+    #
     def __eq__(self, other):
         if self.dist == cor.get_dist(other):
             return True

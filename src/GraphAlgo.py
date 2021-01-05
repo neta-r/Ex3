@@ -23,7 +23,15 @@ class GraphAlgo(GraphAlgoInterface):
             with open(file_name, "r") as f:
                 dict_graph = json.load(f)
                 for dic in dict_graph["Nodes"]:
-                    gr.add_node(dic["id"], dic["pos"])
+                    st = dic["pos"]
+                    if st is not None:
+                        x, y, z = str.split(st, ",")
+                        x = float(x)
+                        y = float(y)
+                        z = float(z)
+                        gr.add_node(dic["id"], (x, y, z))
+                    else:
+                        gr.add_node(dic["id"])
                 for dic in dict_graph["Edges"]:
                     gr.add_edge(id1=dic["src"], id2=dic["dest"], weight=dic["w"])
         except IOError as e:

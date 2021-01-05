@@ -94,9 +94,11 @@ class test_GraphAlgo(TestCase):
         self.assertEqual(ans, algo_g.connected_components())
 
     def test_plot_graph(self):
-        graph = self.graph_creator(10, 20)
-        Node.set_pos(graph.nodes.get(2), 2, 5)
-        Node.set_pos(graph.nodes.get(8), 8, 7.41)
-        Node.set_pos(graph.nodes.get(1), 10, 10)
-        algo_g = GraphAlgo(graph)
+        # graph = self.graph_creator(10, 20)
+        # Node.set_pos(graph.nodes.get(2), 2, 5)
+        # Node.set_pos(graph.nodes.get(8), 8, 7.41)
+        # Node.set_pos(graph.nodes.get(1), 10, 10)
+        #
+        algo_g = GraphAlgo()
+        algo_g.load_from_json("../data/A2")
         algo_g.plot_graph()
