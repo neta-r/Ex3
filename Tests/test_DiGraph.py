@@ -224,7 +224,3 @@ class TestDiGraph(TestCase):
         graph.add_node(8915)
         self.assertEqual(num, graph.get_mc())
 
-    def test_encoder(self):
-        graph = self.graph_creator(10, 20)
-        G = GraphAlgo(graph)
-        G.save_to_json("hello.txt")

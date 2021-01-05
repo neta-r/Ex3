@@ -7,6 +7,7 @@ from GraphAlgoInterface import GraphAlgoInterface
 from Node import Node
 from sp_algo import sp_algo
 from visual_g import visual_g
+import threading
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -23,14 +24,14 @@ class GraphAlgo(GraphAlgoInterface):
             with open(file_name, "r") as f:
                 dict_graph = json.load(f)
                 for dic in dict_graph["Nodes"]:
-                    st = dic["pos"]
-                    if st is not None:
+                    try:
+                        st = dic["pos"]
                         x, y, z = str.split(st, ",")
                         x = float(x)
                         y = float(y)
                         z = float(z)
                         gr.add_node(dic["id"], (x, y, z))
-                    else:
+                    except Exception:
                         gr.add_node(dic["id"])
                 for dic in dict_graph["Edges"]:
                     gr.add_edge(id1=dic["src"], id2=dic["dest"], weight=dic["w"])
@@ -62,7 +63,7 @@ class GraphAlgo(GraphAlgoInterface):
         if id1 == id2:
             return 0, path
         if id1 not in DiGraph.get_all_v(self.graph).keys() or id2 not in DiGraph.get_all_v(self.graph).keys():
-            return float('inf'), []
+            return float('inf'), path
         dest: Node = DiGraph.get_node(self.graph, id2)
         sp_algo.dijkstra(self.graph, DiGraph.get_node(self.graph, id1), dest)
         dist = dest.get_tag()
@@ -89,6 +90,7 @@ class GraphAlgo(GraphAlgoInterface):
 
     def plot_graph(self) -> None:
         a = visual_g(self.graph)
+        a.run()
 
     def __eq__(self, other):
         if type(other) is not GraphAlgo:
@@ -96,3 +98,5 @@ class GraphAlgo(GraphAlgoInterface):
         if self.graph.__eq__(GraphAlgo.get_graph(other)):
             return True
         return False
+
+

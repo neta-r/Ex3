@@ -64,12 +64,12 @@ class test_GraphAlgo(TestCase):
         self.assertEqual(ans, algo_g.connected_component(89))
         ans = [2]
         self.assertEqual(ans, algo_g.connected_component(2))
-        ans = [6, 8, 7, 0]
+        ans = [0, 7, 8, 6]
         self.assertEqual(ans, algo_g.connected_component(6))
         ans = [9]
         self.assertEqual(ans, algo_g.connected_component(9))
         graph.add_edge(3, 6, 7)
-        ans = [3, 6, 8, 7, 0]
+        ans = [0, 7, 8, 6, 3]
         self.assertEqual(ans, algo_g.connected_component(3))
 
     def test_connected_components(self):
@@ -78,27 +78,19 @@ class test_GraphAlgo(TestCase):
         ans = []
         self.assertEqual(ans, algo_g.connected_components())
         algo_g = GraphAlgo(graph)
-        ans = [[9], [2], [1, 4], [3], [6, 8, 7, 0], [5]]
+        ans = [[5], [0, 7, 8, 6], [3], [4, 1], [2], [9]]
         self.assertEqual(ans, algo_g.connected_components())
         graph.add_edge(3, 6, 7)
-        ans = [[9], [2], [1, 4], [3, 6, 8, 7, 0], [5]]
-        self.assertEqual(ans, algo_g.connected_components())
-        graph.add_edge(9, 2, 7)
-        ans = [[9, 2], [1, 4], [3, 6, 8, 7, 0], [5]]
-        self.assertEqual(ans, algo_g.connected_components())
-        graph.add_edge(2, 1, 7)
-        ans = [[9, 2, 1, 4], [3, 6, 8, 7, 0], [5]]
-        self.assertEqual(ans, algo_g.connected_components())
-        graph.add_edge(1, 5, 7)
-        ans = [[8, 6, 3, 5, 9, 2, 1, 4, 7, 0]]
+        ans = [[5], [0, 7, 8, 6, 3], [4, 1], [2], [9]]
         self.assertEqual(ans, algo_g.connected_components())
 
     def test_plot_graph(self):
         # graph = self.graph_creator(10, 20)
         # Node.set_pos(graph.nodes.get(2), 2, 5)
-        # Node.set_pos(graph.nodes.get(8), 8, 7.41)
+        # # Node.set_pos(graph.nodes.get(8), 8, 7.41)
         # Node.set_pos(graph.nodes.get(1), 10, 10)
+        # Node.set_pos(graph.nodes.get(8), 14, 6)
 
         algo_g = GraphAlgo()
-        algo_g.load_from_json("../data/A2")
+        algo_g.load_from_json("../data/A5")
         algo_g.plot_graph()

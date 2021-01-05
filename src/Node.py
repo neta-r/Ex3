@@ -62,17 +62,25 @@ class Node(object):
 
     # def __dict__(self):
     #     return {"id": self.__key, "pos": self.__pos}
+
     def __str__(self):
         return f"str: id:{self.__key}, pos:{self.__pos}"
 
     def __repr__(self):
-        return f"repr: id:{self.__key}, pos:{self.__pos}"
+        return f"{self.__key}: |edges out| {len(self.__nei)} |edges in| {len(self.__c_to_me)}"  # , pos:{self.__pos}"
 
     def encoder(self):
         return {
             'id': self.get_key(),
             'pos': self.__pos
         }
+
+    def __lt__(self, other):
+        other: Node = other
+        if self.__tag == other.__tag:
+            return True
+        else:
+            return self.__tag < other.__tag
 
     def __eq__(self, other):
         if type(other) is not Node:

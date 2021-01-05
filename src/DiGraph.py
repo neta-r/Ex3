@@ -72,7 +72,8 @@ class DiGraph(GraphInterface):
     def get_mc(self) -> int:
         return self.mode_count
 
-    def encoder(self, o):
+    @staticmethod
+    def encoder(o):
         print(o.__dict__)
         return o.__dict__
 
@@ -92,3 +93,6 @@ class DiGraph(GraphInterface):
             if not Node.__eq__(nd, other_v):
                 return False
         return True
+
+    def __repr__(self):
+        return f"Graph: |V|={self.v_size()} , |E|={self.num_of_ed}"

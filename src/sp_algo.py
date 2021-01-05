@@ -1,6 +1,7 @@
 import heapq
 from DiGraph import DiGraph
 from Node import Node
+from queue import PriorityQueue
 
 
 class sp_algo:
@@ -10,10 +11,12 @@ class sp_algo:
         sp_algo.reset_d(graph)
         src.set_tag(0)
         q = []
+
         for nd in graph.nodes.values():
-            heapq.heappush(q, (Node.get_tag(nd), Node.get_key(nd), nd))
+            heapq.heappush(q, nd)
+        # q.put((nd.get_tag(), nd.get_key(), nd))
         while len(q) != 0:
-            cur: Node = heapq.heappop(q)[2]
+            cur: Node = heapq.heappop(q)
             for ni, ed in Node.get_ni(cur).items():
                 ni_node: Node = DiGraph.get_node(graph, ni)
                 if not ni_node.get_is_vis():
@@ -21,6 +24,8 @@ class sp_algo:
                     if Node.get_tag(ni_node) > dis:
                         Node.set_tag(ni_node, dis)
                         Node.set_pred(ni_node, cur)
+                        # q.get(ni_node)
+                        # q.put((ni_node.get_tag, ni_node.get_key, ni_node))
                         heapq.heapify(q)
             if cur.get_key() == dest.get_key():
                 return
@@ -75,11 +80,11 @@ class sp_algo:
                     x = self.__st.pop()
                     if x == self.__nd:
                         flag = True
-                    com.append(Node.get_key(x))
+                    com.insert(0, Node.get_key(x))
                     Node.set_tag(x, float('inf'))
                     if x == nd:
                         break
-                self.__comps.append(com)
+                self.__comps.insert(1, com)
                 if flag:
                     self.__nds_com = com
                     return
