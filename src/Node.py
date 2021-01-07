@@ -2,13 +2,12 @@ class Node(object):
     random_key = 0
 
     def __init__(self, key: int = random_key, pos: tuple = None):
-        self.random_key = self.random_key + 1
+        Node.random_key = self.random_key + 1
         self.__key = key
         self.__nei = {}
         self.__c_to_me = {}
         self.__pos = pos
         self.__tag = -1
-        self.__is_vis = False
         self.__pred = None
 
     def get_key(self) -> int:
@@ -25,12 +24,6 @@ class Node(object):
 
     def set_pred(self, pred):
         self.__pred = pred
-
-    def get_is_vis(self) -> bool:
-        return self.__is_vis
-
-    def set_is_vis(self, is_vis):
-        self.__is_vis = is_vis
 
     def get_pos(self) -> [tuple]:
         return self.__pos

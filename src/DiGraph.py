@@ -1,7 +1,5 @@
 from GraphInterface import GraphInterface
 from Node import Node
-import numpy
-import matplotlib
 
 
 class DiGraph(GraphInterface):

@@ -4,8 +4,6 @@ from unittest import TestCase
 from DiGraph import DiGraph
 from random import randrange
 
-from GraphAlgo import GraphAlgo
-
 
 class TestDiGraph(TestCase):
 

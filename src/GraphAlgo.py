@@ -1,7 +1,6 @@
 import json
 from typing import List
-import heapq
-import GraphInterface
+from GraphInterface import GraphInterface
 from DiGraph import DiGraph
 from GraphAlgoInterface import GraphAlgoInterface
 from Node import Node
@@ -90,7 +89,10 @@ class GraphAlgo(GraphAlgoInterface):
 
     def plot_graph(self) -> None:
         a = visual_g(self.graph)
+        #t1 = threading.Thread(target=a.run)##TODO:make the thread die
+        #t1.start()
         a.run()
+        print("what?")
 
     def __eq__(self, other):
         if type(other) is not GraphAlgo:
@@ -98,5 +100,3 @@ class GraphAlgo(GraphAlgoInterface):
         if self.graph.__eq__(GraphAlgo.get_graph(other)):
             return True
         return False
-
-

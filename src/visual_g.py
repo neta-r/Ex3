@@ -1,4 +1,3 @@
-import heapq
 from queue import PriorityQueue
 from DiGraph import DiGraph
 from Node import Node
@@ -23,6 +22,8 @@ class visual_g:
                 yc.append(nd.get_pos()[1])
             else:
                 self.left.append(nd)
+        if len(self.left) == 0:
+            return
         xc.sort()
         yc.sort()
         if len(self.left) < self.graph.v_size():
@@ -35,9 +36,6 @@ class visual_g:
             xc.append(7)
             yc.insert(0, 0)
             yc.append(7)
-
-        if len(self.left) == 0:
-            return
         self.mk_q(xc, yc)
 
     def mk_q(self, xc: list, yc: list):
@@ -93,7 +91,6 @@ class visual_g:
         plt.show()
 
     def run(self):
-
         self.paint()
 
 class cor:
