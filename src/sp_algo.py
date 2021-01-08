@@ -10,22 +10,20 @@ class sp_algo:
         sp_algo.reset_d(graph)
         src.set_tag(0)
         vis = set()
-        unvis = [src]
+        unvis = [(0, src)]
         while len(unvis) and len(vis) != graph.v_size():
-            cur: Node = heapq.heappop(unvis)
+            cur: Node = heapq.heappop(unvis)[1]
             if cur.get_key() not in vis:
                 vis.add(cur.get_key())
-                # if cur.get_key() == dest.get_key():
-                #     return
+                if cur.get_key() == dest.get_key():
+                    return
                 for ni, ed in graph.all_out_edges_of_node(cur.get_key()).items():
                     ni_node: Node = DiGraph.get_node(graph, ni)
                     dis = cur.get_tag() + ed
                     if ni_node.get_tag() > dis:
                         ni_node.set_tag(dis)
                         ni_node.set_pred(cur)
-                        unvis.append(ni_node)
-                    if ni_node.get_key() ==dest.get_key():
-                        return
+                        unvis.append((ni_node.get_tag(), ni_node))
                 heapq.heapify(unvis)
 
     @staticmethod

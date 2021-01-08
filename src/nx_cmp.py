@@ -27,16 +27,17 @@ if __name__ == '__main__':
     a = GraphAlgo()
     a.load_from_json("../data/G_30000_240000_0.json")
     dt = time.time()
-    f = a.shortest_path(5,1)
+    f = a.shortest_path(1,5)
+    #a.load_from_json("../data/G_30000_240000_0.json")
     mt = time.time() - dt
-    print(mt)
-    print(f[1])
-    g = nx_cmp.read_json_file("../data/G_30000_240000_0.json")
-    dt = time.time()
-    n = nx.shortest_path(g, 5,1)
-    nt = time.time() - dt
-    print(n)
-    print(nt)
+    print(mt,f[1])
+    #print(f[1])
+    # g = nx_cmp.read_json_file("../data/G_30000_240000_0.json")
+    # dt = time.time()
+    # n = nx.shortest_path(g, 5,1)
+    # nt = time.time() - dt
+    # print(n)
+    # print(nt)
     # k = nx.strongly_connected_components(g)
     i = 0
     # print(nx.number_strongly_connected_components(g))

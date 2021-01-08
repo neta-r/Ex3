@@ -21,14 +21,14 @@ class test_GraphAlgo(TestCase):
         return graph
 
     def test_save_and_load(self):
-        #graph = self.graph_creator(10, 20)
-       # algo_g = GraphAlgo(graph)
-        #algo_g.save_to_json("testing.txt")
+        graph = self.graph_creator(10, 20)
+        algo_g = GraphAlgo(graph)
+        algo_g.save_to_json("testing.txt")
         algo_g2 = GraphAlgo()
-        algo_g2.load_from_json("../data/G_30000_240000_0.json")
-        #self.assertEqual(algo_g.graph, algo_g2.graph)
-       # algo_g.graph.remove_node(5)
-       # self.assertNotEqual(algo_g.graph, algo_g2.graph)
+        algo_g2.load_from_json("testing.txt")
+        self.assertEqual(algo_g.graph, algo_g2.graph)
+        algo_g.graph.remove_node(5)
+        self.assertNotEqual(algo_g.graph, algo_g2.graph)
 
     def test_shortest_path(self):
         graph = self.graph_creator(10, 20)
