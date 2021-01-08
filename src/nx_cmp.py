@@ -24,25 +24,29 @@ class nx_cmp:
 
 
 if __name__ == '__main__':
+    v = [10, 100, 1000, 10000, 20000, 30000]
+    e = [80, 800, 8000, 80000, 160000, 240000]
     a = GraphAlgo()
-    a.load_from_json("../data/G_30000_240000_0.json")
-    dt = time.time()
-    f = a.shortest_path(1,5)
-    #a.load_from_json("../data/G_30000_240000_0.json")
-    mt = time.time() - dt
-    print(mt,f[1])
-    #print(f[1])
-    # g = nx_cmp.read_json_file("../data/G_30000_240000_0.json")
-    # dt = time.time()
-    # n = nx.shortest_path(g, 5,1)
-    # nt = time.time() - dt
-    # print(n)
-    # print(nt)
-    # k = nx.strongly_connected_components(g)
-    i = 0
-    # print(nx.number_strongly_connected_components(g))
-    # for l in k:
-    #     i += 1
-    #     print(i)
-    # print()
-    print("what?")
+    for ve, ed in zip(v, e):
+        print(f"Graph : |V|={ve} , |E| = {ed}")
+        g = nx_cmp.read_json_file(f"../data/G_{ve}_{ed}_0.json")
+        a.load_from_json(f"../data/G_{ve}_{ed}_0.json")
+        print("Shortest Path ////////////////////////////////////////\n")
+        dt = time.time()
+        f = a.shortest_path(1, 5)
+        mt = time.time() - dt
+        print(f"my time : {mt}, path list for correct algo= {f[1]}")
+        dt = time.time()
+        f = nx.shortest_path(g, 1, 5, weight='weight')
+        mt = time.time() - dt
+        print(f"networkx time : {mt}, path list for networkx algo= {f}")
+        print("Connected Components ////////////////////////////////////////////////////////\n")
+        dt = time.time()
+        f = a.connected_components()
+        mt = time.time() - dt
+        print(f"my time : {mt}, CC= {f}")
+        dt = time.time()
+        f = nx.kosaraju_strongly_connected_components(g)
+        mt = time.time() - dt
+        print(f"networkx time : {mt}, CC= {f}")
+
