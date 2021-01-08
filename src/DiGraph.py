@@ -103,11 +103,17 @@ class DiGraph(GraphInterface):
         if self.get_mc() != DiGraph.get_mc(other):
             return False
         for nd in self.nodes.values():
-            if Node.get_key(nd) not in DiGraph.get_all_v(other).keys():
+            if nd.get_key() not in other.get_all_v().keys():
                 return False
-            other_v = DiGraph.get_node(other, Node.get_key(nd))
-            if not Node.__eq__(nd, other_v):
+            other_v = other.get_node(nd.get_key())
+            if not nd == other_v:
                 return False
+            if nd.get_key() not in self.edge_out.keys():
+                continue
+            for nei1, ed1 in self.edge_out[nd.get_key()].items():
+                if nei1 in other.edge_out[nd.get_key()].keys():
+                    if ed1 != other.edge_out[nd.get_key()].get(nei1):
+                        return False
         return True
 
     def __repr__(self):

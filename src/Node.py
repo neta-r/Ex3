@@ -63,6 +63,9 @@ class Node(object):
         return f"{self.__key}: |edges out| {len(self.__nei)} |edges in| {len(self.__c_to_me)}"  # , pos:{self.__pos}"
 
     def encoder(self):
+        if self.__pos is None:
+            return {
+                'id': self.get_key()}
         return {
             'id': self.get_key(),
             'pos': self.__pos

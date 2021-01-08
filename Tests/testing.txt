@@ -103,44 +103,34 @@
     ],
     "Nodes": [
         {
-            "id": 0,
-            "pos": null
+            "id": 0
         },
         {
-            "id": 1,
-            "pos": null
+            "id": 1
         },
         {
-            "id": 2,
-            "pos": null
+            "id": 2
         },
         {
-            "id": 3,
-            "pos": null
+            "id": 3
         },
         {
-            "id": 4,
-            "pos": null
+            "id": 4
         },
         {
-            "id": 5,
-            "pos": null
+            "id": 5
         },
         {
-            "id": 6,
-            "pos": null
+            "id": 6
         },
         {
-            "id": 7,
-            "pos": null
+            "id": 7
         },
         {
-            "id": 8,
-            "pos": null
+            "id": 8
         },
         {
-            "id": 9,
-            "pos": null
+            "id": 9
         }
     ]
 }
