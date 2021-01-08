@@ -71,17 +71,19 @@ class sp_algo:
                     self.dfs(nd)
 
         def dfs(self, nd: Node):
+            #unvis= [nd.get_key()]
             self.__time = self.__time + 1
             nd.set_tag(self.__time)
             self._vis.add(nd.get_key())
             self.__st.append(nd)
             is_component_root = True
+
             for key_n in self.__graph.all_out_edges_of_node(nd.get_key()).keys():
                 nei: Node = self.__graph.get_node(key_n)
                 if key_n not in self._vis:
                     self.dfs(nei)
                 if nd.get_tag() > nei.get_tag():
-                    nd.set_tag(Node.get_tag(nei))
+                    nd.set_tag(nei.get_tag())
                     is_component_root = False
             if is_component_root:
                 com = []
