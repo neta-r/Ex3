@@ -7,6 +7,11 @@ class sp_algo:
 
     @staticmethod
     def dijkstra(graph: DiGraph, src: Node, dest: Node):
+        """
+        This function is an implementation of the Dijkstra algorithm.
+        The function marks on each vertex the weight to the source vertex and it's predecessor so the casing function
+        can track down the path.
+        """
         sp_algo.reset_d(graph)
         src.set_tag(0)
         vis = set()
@@ -28,6 +33,9 @@ class sp_algo:
 
     @staticmethod
     def reset_d(graph: DiGraph):
+        """
+        This function is resetting all of the vertices marks used in the last round of the Dijkstra algorithm.
+        """
         for nd in graph.nodes.values():
             # Node.set_tag(nd, float('inf'))
             nd.set_tag(float('inf'))
@@ -35,6 +43,9 @@ class sp_algo:
 
     @staticmethod
     def reset_t(graph: DiGraph):
+        """
+        This function is resetting all of the vertices marks used in the last round of the Tarjan algorithm.
+        """
         for nd in graph.nodes.values():
             nd.set_tag(-1)
             nd.set_pred(None)

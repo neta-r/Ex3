@@ -4,65 +4,76 @@ class Node(object):
     def __init__(self, key: int = random_key, pos: tuple = None):
         Node.random_key = self.random_key + 1
         self.__key = key
-        self.__nei = {}
-        self.__c_to_me = {}
         self.__pos = pos
         self.__tag = -1
         self.__pred = None
+        self.num_of_ed_in = 0
+        self.num_of_ed_out = 0
 
     def get_key(self) -> int:
+        """
+        returns: The key of the vertex.
+        """
         return self.__key
 
     def get_tag(self) -> int:
+        """
+        returns: The tag of the vertex.
+        note: Will be used later in the Dijkstra and Tarjan algorithms.
+        """
         return self.__tag
 
     def set_tag(self, tag):
+        """
+        parm: A new tag to the vertex.
+        note: Will be used later in the Dijkstra and Tarjan algorithms.
+        """
         self.__tag = tag
 
     def get_pred(self):
+        """
+        returns: The predecessor of the vertex.
+        note: Will be used later in the Dijkstra algorithm.
+        """
         return self.__pred
 
     def set_pred(self, pred):
+        """
+        parm: A new predecessor of the vertex.
+        note: Will be used later in the dijkstra algorithm.
+        """
         self.__pred = pred
 
     def get_pos(self) -> [tuple]:
+        """"
+        returns: The position (x and y) of the vertex.
+        note: Will be used later to draw the graph.
+        """
         return self.__pos
 
     def set_pos(self, x, y):
+        """
+        parm: A new position of the vertex.
+        note: Will be used later to draw the graph.
+        """
         self.__pos = (x, y, 0)
 
-    def get_ni(self):
-        return self.__nei
-
-    def get_c_tome(self):
-        return self.__c_to_me
-
-    def add_ni(self, other_node, weight: float):
-        if Node.get_key(other_node) not in self.__nei.keys():  # להסביר לטל למה עשיתי ככה
-            self.__nei[Node.get_key(other_node)] = weight
-            Node.add_to_me(other_node, self, weight)
-
-    def add_to_me(self, other_node, weight: float):
-        self.__c_to_me[Node.get_key(other_node)] = weight
-
-    def remove_ni(self, other_node):
-        if Node.get_key(other_node) in self.__nei.keys():
-            del self.__nei[Node.get_key(other_node)]
-            Node.del_from_me(other_node, self)
-
-    def del_from_me(self, other_node):
-        del self.__c_to_me[Node.get_key(other_node)]
-
-    # def __dict__(self):
-    #     return {"id": self.__key, "pos": self.__pos}
-
     def __str__(self):
+        """
+        returns: A String representing the vertex.
+        """
         return f"str: id:{self.__key}, pos:{self.__pos}"
 
     def __repr__(self):
-        return f"{self.__key}: |edges out| {len(self.__nei)} |edges in| {len(self.__c_to_me)}"  # , pos:{self.__pos}"
+        """
+        returns: A String representing the vertex.
+        """
+        return f"{self.__key}: |edges out| {self.num_of_ed_out} |edges in| {self.num_of_ed_in}"  # , pos:{self.__pos}"
 
     def encoder(self):
+        """
+        returns: The representation of the vertex in a json format.
+        """
         if self.__pos is None:
             return {
                 'id': self.get_key()}
@@ -72,6 +83,10 @@ class Node(object):
         }
 
     def __lt__(self, other):
+        """
+        returns: Which vertex is bigger.
+        note: Will be used later in a priority queue.
+        """
         other: Node = other
         if self.__tag == other.__tag:
             return True
@@ -79,20 +94,14 @@ class Node(object):
             return self.__tag < other.__tag
 
     def __eq__(self, other):
+        """
+        returns: True if the two vertices are equals by all the node's fields.
+        note: Will be use in the tests.
+        """
         if type(other) is not Node:
             return False
         if Node.get_key(other) != self.__key:
             return False
         if self.__pos != Node.get_pos(other):
             return False
-        for nei, wei in self.__nei.items():
-            if nei not in Node.get_ni(other):
-                return False
-            if Node.get_ni(other)[nei] != wei:
-                return False
-        for nei, wei in self.__c_to_me.items():
-            if nei not in Node.get_c_tome(other):
-                return False
-            if Node.get_c_tome(other)[nei] != wei:
-                return False
         return True

@@ -15,9 +15,16 @@ class GraphAlgo(GraphAlgoInterface):
         self.graph: DiGraph = graph
 
     def get_graph(self) -> GraphInterface:
+        """
+        returns: The graph this class operates on.
+        """
         return self.graph
 
     def load_from_json(self, file_name: str) -> bool:
+        """
+        This function loads the graph from a json format to an object of a GraphAlgo.
+        returns: True if the action succeeded, False otherwise.
+        """
         gr = DiGraph()
         try:
             with open(file_name, "r") as f:
@@ -41,6 +48,10 @@ class GraphAlgo(GraphAlgoInterface):
         return True
 
     def encoder(self):
+        """
+        This function sets the logic to building a json object out of GraphAlgo.
+        note: Will be used in the save function.
+        """
         gp_dict = {"Edges": [],
                    "Nodes": [Node.encoder(node) for node in list(self.graph.get_all_v().values())]}
         for nd in self.graph.nodes.keys():
@@ -49,6 +60,10 @@ class GraphAlgo(GraphAlgoInterface):
         return gp_dict
 
     def save_to_json(self, file_name: str) -> bool:
+        """
+        This function saves the current graph into a json format, Uses the logic sets by the encoder function.
+        returns: True if the action succeeded, False otherwise.
+        """
         try:
             with open(file_name, "w") as f:
                 json.dump(self.encoder(), fp=f, indent=4)
@@ -58,6 +73,13 @@ class GraphAlgo(GraphAlgoInterface):
             return False
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
+        """
+        This is the casing function of the Dijkstra function in the sp_algo class.
+        The function operates iff the two vertices are unequals by keys and both of them exists in the graph.
+        The function builds the path from the pred field saved in each node after the Dijkstra operates.
+        returns: The distance between the two vertices and the path to get there.
+        note: If there is no valid path the function will return float('inf') and an empty path.
+        """
         path = []
         if id1 == id2:
             return 0, path
@@ -74,6 +96,12 @@ class GraphAlgo(GraphAlgoInterface):
         return dist, path
 
     def connected_component(self, id1: int) -> list:
+        """
+        This is the casing function of the Tarjan function in the sp_algo class.
+        The function operates iff the vertex exists in the graph and the graph exists.
+        returns: A list of vertices that shares the same SCC with the given vertex.
+        note: If the given vertex doesn't exist in the graph or the graph doesn't exists the function will return an empty list.
+        """
         if self.graph is None:
             return []
         if id1 not in self.graph.nodes.keys():
@@ -82,12 +110,21 @@ class GraphAlgo(GraphAlgoInterface):
         return t.get_nds_comp()
 
     def connected_components(self) -> List[list]:
+        """
+        This is the casing function of the Tarjan function in the sp_algo class.
+        The function operates iff the the graph exists.
+        returns: A list of lists- each inner list contains all the vertices that are sharing the same SCC.
+        note: If the graph doesn't exists the function will return an empty list.
+        """
         if self.graph is None:
             return []
         t = sp_algo.Tarjan(self.graph)
         return t.get_components()
 
     def plot_graph(self) -> None:
+        """
+        This is the casing function of the paint function in the visual_g class.
+        """
         a = visual_g(self.graph)
         #t1 = threading.Thread(target=a.run)##TODO:make the thread die
         #t1.start()
@@ -95,6 +132,10 @@ class GraphAlgo(GraphAlgoInterface):
         print("what?")
 
     def __eq__(self, other):
+        """
+        returns: True if the two AlgoGraphs are equals by all the GraphAlgo's fields.
+        note: Will be use in the tests.
+        """
         if type(other) is not GraphAlgo:
             return False
         if self.graph.__eq__(GraphAlgo.get_graph(other)):

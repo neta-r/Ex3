@@ -13,6 +13,14 @@ class visual_g:
         self.org()
 
     def org(self):
+        """
+        This is the function that Organize the frame size.
+        First it is dividing all of the vertices into two groups-
+        Vertices with positions and vertices without positions.
+        The default frame size in 7 X 7 (in case that all the vertices in the graph has no position).
+        Otherwise the frame size is the maximum and minimum x and y  plus and minus 0.5 accordingly.
+        Vertices with no position are sent to rnd_mk.
+        """
         xc = []
         yc = []
         for nd in self.graph.get_all_v().values():
@@ -39,6 +47,9 @@ class visual_g:
         self.mk_q(xc, yc)
 
     def mk_q(self, xc: list, yc: list):
+        """
+        This is the function that is creating cor objects out of each two adjacent x's and y's.
+        """
         for i in range(len(xc) - 1):
             cur = cor(xc[i], xc[i + 1])
             self.xq.put((-cur.dist, cur))
@@ -47,6 +58,12 @@ class visual_g:
         self.rnd_mk()
 
     def rnd_mk(self):
+        """
+        This is the function that random the position to the vertices that have none.
+        It is doing it by taking the largest space between each adjacent x's and setting the vertex' x to be the middle
+        of the section. Then it is doing the same with the largest space between each adjacent y's.
+        Then it is dividing the used section into half and placing them back in the priority queue.
+        """
         while len(self.left):
             nod: Node = self.left.pop()
             cur: cor = self.xq.get()[1]
@@ -64,6 +81,10 @@ class visual_g:
             nod.set_pos(x, y)
 
     def paint(self):
+        """
+        This function draws the graph using the matplotlib library.
+        The vertices are draw by using the scatter function and the edge by using the arrow function.
+        """
         x = []
         y = []
         plt.figure(figsize=(10, 5), facecolor="silver")
@@ -100,13 +121,24 @@ class cor:
         self.dist = abs(coor2 - coor1)
 
     def get_dist(self):
+        """
+        returns: The distance between a pair of coor.
+        """
         return self.dist
 
     def __eq__(self, other):
+        """
+        returns: True if the two cor are equals by all the cor's fields.
+        note: Will be use in the priority queue.
+        """
         if self.dist == cor.get_dist(other):
             return True
 
     def __cmp__(self, other):
+        """
+        returns: 0 if the two cors are have the same distance,
+        1 if the self cor has a bigger distance, and -1 if the self cor has a smaller distance.
+        """
         if self.dist == cor.get_dist(other):
             return 0
         if self.dist > cor.get_dist(other):
