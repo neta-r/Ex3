@@ -44,9 +44,9 @@ if __name__ == '__main__':
         dt = time.time()
         f = a.connected_components()
         mt = time.time() - dt
-        print(f"my time : {mt}, CC= {f}")
+        print(f"my time : {mt}, Number of SCC= {len(f)}")
         dt = time.time()
         f = nx.kosaraju_strongly_connected_components(g)
         mt = time.time() - dt
-        print(f"networkx time : {mt}, CC= {f}")
+        print(f"networkx time : {mt},Number of SCC= {f}")
 

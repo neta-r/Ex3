@@ -67,51 +67,59 @@ class sp_algo:
                 self.dfs_it(cmp)
                 return
             for nd in self.__graph.nodes.values():
-                if nd.get_key() not in self._vis:
+                if nd.get_tag() == -1:
                     self.dfs_it(nd)
 
         def dfs_it(self, nd: Node):
             unvis = {nd.get_key(): 0}
             lowlink = {}
-            onstack = []
+            index = {}
+            #onstack = []
             while len(unvis):
-                kd, i = unvis.popitem()
-                if kd not in onstack:  # if i == 0:
-                    lowlink[kd] = self.__idx
+                ve, i = unvis.popitem()
+                if i == 0:
+                    index[ve] = self.__idx
+                    lowlink[ve] = self.__idx
                     self.__idx += 1
-                    self.__st.append(kd)
-                    onstack.append(kd)
+                    self.__st.append(ve)
+                    #onstack.append(ve)
                 recurse = False
-                # for nei in self.__graph.all_out_edges_of_node(nd):
-                neis = list(self.__graph.all_out_edges_of_node(kd).keys()) #list(my_dict.keys())
+                neis = list(self.__graph.all_out_edges_of_node(ve).keys())
                 for j in range(i, len(neis)):
-                    nei = neis[j]
-                    if self.__graph.get_node(nei).get_tag() != -1:
+                    nex = neis[j]
+                    if self.__graph.get_node(nex).get_tag() != -1:
                         continue
-                    if nei not in onstack:
-                        unvis.update({kd: j + 1})
-                        unvis.update({nei: 0})
+                    if nex not in index:
+                        unvis.update({ve: j + 1})
+                        unvis.update({nex: 0})
                         recurse = True
                         break
-                    else:
-                        lowlink[kd] = min(lowlink[kd], lowlink[nei])
+                    if nex in self.__st:
+                        lowlink[ve] = min(lowlink[ve], index[nex])
                 if recurse:
                     continue
-                if kd == nd.get_key():
+                if lowlink[ve] == index[ve]:
                     com = []
                     flag = False
                     while True:
-                        x = self.__st.pop()
-                        if x == self.__nd:
-                            flag = True
-                        com.insert(0, x)
-                        self.__graph.get_node(x).set_tag(0)
-                        if x == nd:
+                        nex = self.__st.pop()
+                        #onstack.remove(nex)
+                        if self.__nd is not None:
+                            if nex == self.__nd.get_key():
+                                flag = True
+                        com.insert(0, nex)
+                        self.__graph.get_node(nex).set_tag(0)
+                        if nex == ve:
                             break
                     self.__comps.insert(1, com)
                     if flag:
                         self.__nds_com = com
                         return
+                if len(unvis):
+                    nex = ve
+                    ve, i = unvis.popitem()
+                    unvis.update({ve: i})
+                    lowlink[ve] = min(lowlink[ve], lowlink[nex])
 
         # def dfs(self, nd: Node):
         #     unvis = {nd: 0}
@@ -172,6 +180,6 @@ class sp_algo:
 
 if __name__ == '__main__':
     dic = {5: 2, 6: 3}
-    a=dic[5]
-    #dic.update({5: 3})
+    a = dic[5]
+    # dic.update({5: 3})
     print(a)
