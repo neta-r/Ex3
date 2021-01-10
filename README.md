@@ -22,9 +22,15 @@ We created classes that represent directed weighted graph.
 3. Saving the graph to a json format and loding a graph from a json format.
 4. Drawing the graph.
 
+Example to a graph with given positions:
+
 ![image](https://user-images.githubusercontent.com/69470263/104124863-da07b680-535b-11eb-9673-521f93429847.png)
 
+Examples to graphs with random positions:
+
 ![image](https://user-images.githubusercontent.com/69470263/104124865-de33d400-535b-11eb-9fd8-80d64beda30c.png)
+
+![image](https://user-images.githubusercontent.com/69470263/104125137-84340e00-535d-11eb-99a9-1f5de188a15a.png)
 
 
 **for more information check out part two in the wiki pages**
