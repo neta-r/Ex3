@@ -3,7 +3,7 @@ import networkx as nx
 from networkx.readwrite import json_graph
 from unittest import TestCase
 
-from dig.GraphAlgo import GraphAlgo
+from cl.GraphAlgo import GraphAlgo
 
 
 class network_cmp(TestCase):

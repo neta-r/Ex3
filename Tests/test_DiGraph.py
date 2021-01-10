@@ -1,7 +1,7 @@
 from random import seed
 from random import random
 from unittest import TestCase
-from dig.DiGraph import DiGraph
+from cl.DiGraph import DiGraph
 from random import randrange
 
 

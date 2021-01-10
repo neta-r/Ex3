@@ -1,7 +1,7 @@
 from unittest import TestCase
 from random import seed, randrange, random
-from dig.DiGraph import DiGraph
-from dig.GraphAlgo import GraphAlgo
+from cl.DiGraph import DiGraph
+from cl.GraphAlgo import GraphAlgo
 
 
 class test_GraphAlgo(TestCase):
