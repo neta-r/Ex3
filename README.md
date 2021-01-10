@@ -22,6 +22,11 @@ We created classes that represent directed weighted graph.
 3. Saving the graph to a json format and loding a graph from a json format.
 4. Drawing the graph.
 
+![image](https://user-images.githubusercontent.com/69470263/104124863-da07b680-535b-11eb-9673-521f93429847.png)
+
+![image](https://user-images.githubusercontent.com/69470263/104124865-de33d400-535b-11eb-9fd8-80d64beda30c.png)
+
+
 **for more information check out part two in the wiki pages**
 
 > Compared To Other:
