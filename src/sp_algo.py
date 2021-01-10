@@ -37,7 +37,6 @@ class sp_algo:
         This function is resetting all of the vertices marks used in the last round of the Dijkstra algorithm.
         """
         for nd in graph.nodes.values():
-            # Node.set_tag(nd, float('inf'))
             nd.set_tag(float('inf'))
             nd.set_pred(None)
 
@@ -48,7 +47,6 @@ class sp_algo:
         """
         for nd in graph.nodes.values():
             nd.set_tag(-1)
-            # nd.set_pred(None)
 
     class Tarjan:
 
@@ -74,7 +72,6 @@ class sp_algo:
             unvis = {nd.get_key(): 0}
             lowlink = {}
             index = {}
-            #onstack = []
             while len(unvis):
                 ve, i = unvis.popitem()
                 if i == 0:
@@ -102,7 +99,6 @@ class sp_algo:
                     flag = False
                     while True:
                         nex = self.__st.pop()
-                        #>onstack.remove(nex)
                         if self.__nd is not None:
                             if nex == self.__nd.get_key():
                                 flag = True
@@ -120,53 +116,6 @@ class sp_algo:
                     unvis.update({ve: i})
                     lowlink[ve] = min(lowlink[ve], lowlink[nex])
 
-        # def dfs(self, nd: Node):
-        #     unvis = {nd: 0}
-        #     root = nd
-        #     # unvis.add(nd)
-        #     # self.__time = self.__time + 1
-        #     # nd.set_tag(self.__time)
-        #     # self._vis.add(nd.get_key())
-        #     # self.__st.append(nd)
-        #     onstack = {}
-        #     # is_component_root = True
-        #     while len(unvis):
-        #         nd = unvis.pop()[0]
-        #         self.__time = self.__time + 1
-        #         nd.set_tag(self.__time)
-        #         self._vis.add(nd.get_key())
-        #         self.__st.append(nd)
-        #         # onstack[nd.get_key()]=True
-        #         # is_component_root = True
-        #         root = nd
-        #         recurse = False
-        #         for key_n in self.__graph.all_out_edges_of_node(nd.get_key()).keys():
-        #             nei: Node = self.__graph.get_node(key_n)
-        #             if key_n not in self._vis:
-        #                 # unvis.
-        #                 # if nd not in unvis:
-        #                 #     unvis.append(nd)
-        #                 break
-        #             # self.dfs(nei)
-        #             if nd.get_tag() > nei.get_tag():
-        #                 nd.set_tag(nei.get_tag())
-        #                 # is_component_root = False
-        #         if recurse:
-        #             com = []
-        #             flag = False
-        #             while True:
-        #                 x = self.__st.pop()
-        #                 if x == self.__nd:
-        #                     flag = True
-        #                 com.insert(0, x.get_key())
-        #                 Node.set_tag(x, float('inf'))
-        #                 if x == nd:
-        #                     break
-        #             self.__comps.insert(1, com)
-        #             if flag:
-        #                 self.__nds_com = com
-        #                 return
-
         def get_nds_comp(self):
             self.tar(self.__nd)
             return sorted(self.__nds_com)
@@ -176,9 +125,3 @@ class sp_algo:
             self.__comps.pop(0)
             return self.__comps
 
-
-if __name__ == '__main__':
-    dic = {5: 2, 6: 3}
-    a = dic[5]
-    # dic.update({5: 3})
-    print(a)

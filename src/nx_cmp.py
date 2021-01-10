@@ -35,22 +35,22 @@ if __name__ == '__main__':
         f=a.connected_component(1)
         mt = time.time() - dt
         print(f"my time : {mt},Number of nodes in CC= {len(f)}")
-        # print("Shortest Path ////////////////////////////////////////\n")
-        # dt = time.time()
-        # f = a.shortest_path(1, 5)
-        # mt = time.time() - dt
-        # print(f"my time : {mt}, path size list for correct algo= {len(f[1])}")
-        # dt = time.time()
-        # f = nx.shortest_path(g, 1, 5, weight='weight')
-        # mt = time.time() - dt
-        # print(f"networkx time : {mt}, path size list for networkx algo= {len(f)}")
-        # print("Connected Components ////////////////////////////////////////////////////////\n")
-        # dt = time.time()
-        # f = a.connected_components()
-        # mt = time.time() - dt
-        # print(f"my time : {mt}, Number of SCC= {len(f)}")
-        # dt = time.time()
-        # f = nx.kosaraju_strongly_connected_components(g)
-        # mt = time.time() - dt
-        # print(f"networkx time : {mt},Number of SCC= {f}")
+        print("Shortest Path ////////////////////////////////////////\n")
+        dt = time.time()
+        f = a.shortest_path(1, 5)
+        mt = time.time() - dt
+        print(f"my time : {mt}, path size list for correct algo= {len(f[1])}")
+        dt = time.time()
+        f = nx.shortest_path(g, 1, 5, weight='weight')
+        mt = time.time() - dt
+        print(f"networkx time : {mt}, path size list for networkx algo= {len(f)}")
+        print("Connected Components ////////////////////////////////////////////////////////\n")
+        dt = time.time()
+        f = a.connected_components()
+        mt = time.time() - dt
+        print(f"my time : {mt}, Number of SCC= {len(f)}")
+        dt = time.time()
+        f = nx.kosaraju_strongly_connected_components(g)
+        mt = time.time() - dt
+        print(f"networkx time : {mt},Number of SCC= {f}")
 

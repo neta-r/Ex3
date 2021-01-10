@@ -126,10 +126,7 @@ class GraphAlgo(GraphAlgoInterface):
         This is the casing function of the paint function in the visual_g class.
         """
         a = visual_g(self.graph)
-        #t1 = threading.Thread(target=a.run)##TODO:make the thread die
-        #t1.start()
         a.run()
-        print("what?")
 
     def __eq__(self, other):
         """

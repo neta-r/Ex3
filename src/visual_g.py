@@ -89,13 +89,9 @@ class visual_g:
         y = []
         plt.figure(figsize=(10, 5), facecolor="silver")
         ax = plt.axes()
-        # plt.figure(figsize=(10, 10))
         for node in self.graph.nodes.values():
             x.append(node.get_pos()[0])
             y.append(node.get_pos()[1])
-            # for ed in self.graph.all_out_edges_of_node(node.get_key()).keys():
-            #     desti: Node = self.graph.get_node(ed)
-            #     plt.arrow(node.get_pos()[0], node.get_pos()[1], desti.get_pos()[0], desti.get_pos()[1])
         ax.scatter(x, y, color="black", s=50)
         xl = ax.get_xlim()[1] - ax.get_xlim()[0]
         yl = ax.get_ylim()[1] - ax.get_ylim()[0]
@@ -108,7 +104,6 @@ class visual_g:
                          length_includes_head=True,
                          head_length=yl * 0.02, width=xl * 0.0001 * yl, color='grey')
         plt.title("Your graph!")
-        # plt.plot(x,y)
         plt.show()
 
     def run(self):

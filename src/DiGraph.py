@@ -174,9 +174,3 @@ class DiGraph(GraphInterface):
         """
         return f"Graph: |V|={self.v_size()} , |E|={self.num_of_ed}"
 
-    # def encoder(self):
-    #     return {
-    #         'Nodes': [nd.encoder() for nd in self.nodes.values()],
-    #         'Edges': [{'src': sc, 'dest': ds, 'w': we} for sc in self.edge_out.keys() for ds, we in
-    #                   self.edge_out[sc].items()]
-    #     }

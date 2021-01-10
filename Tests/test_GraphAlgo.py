@@ -1,7 +1,9 @@
 from unittest import TestCase
 from random import seed, randrange, random
-from cl.DiGraph import DiGraph
-from cl.GraphAlgo import GraphAlgo
+
+from DiGraph import DiGraph
+from GraphAlgo import GraphAlgo
+from Node import Node
 
 
 class test_GraphAlgo(TestCase):
@@ -76,7 +78,7 @@ class test_GraphAlgo(TestCase):
         graph = self.graph_creator(10, 20)
         algo_g = GraphAlgo(None)
         ans = []
-       # self.assertEqual(ans, algo_g.connected_components())
+        self.assertEqual(ans, algo_g.connected_components())
         algo_g = GraphAlgo(graph)
         ans = [[5], [0, 7, 8, 6], [3], [4, 1], [2], [9]]
         self.assertEqual(ans, algo_g.connected_components())
@@ -84,13 +86,14 @@ class test_GraphAlgo(TestCase):
         ans = [[5], [0, 7, 8, 6, 3], [4, 1], [2], [9]]
         self.assertEqual(ans, algo_g.connected_components())
 
-   # def test_plot_graph(self):
-        # graph = self.graph_creator(10, 20)
-        # Node.set_pos(graph.nodes.get(2), 2, 5)
-        # # Node.set_pos(graph.nodes.get(8), 8, 7.41)
-        # Node.set_pos(graph.nodes.get(1), 10, 10)
-        # Node.set_pos(graph.nodes.get(8), 14, 6)
 
-        # algo_g = GraphAlgo()
-        # algo_g.load_from_json("../data/A5")
-        # algo_g.plot_graph()
+    def test_plot_graph(self):
+        graph = self.graph_creator(10, 20)
+        Node.set_pos(graph.nodes.get(2), 2, 5)
+        Node.set_pos(graph.nodes.get(8), 8, 7.41)
+        Node.set_pos(graph.nodes.get(1), 10, 10)
+        Node.set_pos(graph.nodes.get(8), 14, 6)
+
+        algo_g = GraphAlgo(graph)
+        algo_g.load_from_json("../data/A5")
+        algo_g.plot_graph()

@@ -1,8 +1,8 @@
-from random import seed
+from random import seed, randrange
 from random import random
 from unittest import TestCase
-from cl.DiGraph import DiGraph
-from random import randrange
+
+from DiGraph import DiGraph
 
 
 class TestDiGraph(TestCase):
