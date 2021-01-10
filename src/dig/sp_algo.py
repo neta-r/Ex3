@@ -82,7 +82,6 @@ class sp_algo:
                     lowlink[ve] = self.__idx
                     self.__idx += 1
                     self.__st.append(ve)
-                    #onstack.append(ve)
                 recurse = False
                 neis = list(self.__graph.all_out_edges_of_node(ve).keys())
                 for j in range(i, len(neis)):
@@ -95,7 +94,7 @@ class sp_algo:
                         recurse = True
                         break
                     if nex in self.__st:
-                        lowlink[ve] = min(lowlink[ve], index[nex])
+                        lowlink[ve] = min(lowlink[ve], lowlink[nex])
                 if recurse:
                     continue
                 if lowlink[ve] == index[ve]:
@@ -103,7 +102,7 @@ class sp_algo:
                     flag = False
                     while True:
                         nex = self.__st.pop()
-                        #onstack.remove(nex)
+                        #>onstack.remove(nex)
                         if self.__nd is not None:
                             if nex == self.__nd.get_key():
                                 flag = True

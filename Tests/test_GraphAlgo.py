@@ -1,7 +1,7 @@
 from unittest import TestCase
 from random import seed, randrange, random
-from DiGraph import DiGraph
-from GraphAlgo import GraphAlgo
+from dig.DiGraph import DiGraph
+from dig.GraphAlgo import GraphAlgo
 
 
 class test_GraphAlgo(TestCase):
@@ -59,6 +59,7 @@ class test_GraphAlgo(TestCase):
         ans = []
         self.assertEqual(ans, algo_g.connected_component(89))
         algo_g = GraphAlgo(graph)
+        algo_g.save_to_json("tesx.json")
         # non exiting node
         self.assertEqual(ans, algo_g.connected_component(89))
         ans = [2]
