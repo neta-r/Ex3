@@ -30,6 +30,8 @@ In this project we compared our work at Java (assigment two in this course) and 
 
 Here are the results:
 
+![image](https://user-images.githubusercontent.com/69470263/104123118-d8d18c00-5351-11eb-9e8a-3c9b6b279c48.png)
+
 
 **for more information check out part three in the wiki pages**
 
