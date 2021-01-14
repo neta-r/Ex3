@@ -61,7 +61,6 @@ class test_GraphAlgo(TestCase):
         ans = []
         self.assertEqual(ans, algo_g.connected_component(89))
         algo_g = GraphAlgo(graph)
-        algo_g.save_to_json("tesx.json")
         # non exiting node
         self.assertEqual(ans, algo_g.connected_component(89))
         ans = [2]

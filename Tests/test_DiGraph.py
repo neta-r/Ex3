@@ -212,7 +212,7 @@ class TestDiGraph(TestCase):
         num = num+1
         self.assertEqual(num, graph.get_mc())
         graph.remove_node(5)
-        num = num+5
+        num = num+1
         self.assertEqual(num, graph.get_mc())
         graph.remove_node(5)
         self.assertEqual(num, graph.get_mc())

@@ -29,6 +29,7 @@ class DiGraph(GraphInterface):
         The function will also disconnect all of the vertex' edges in and out.
         returns: True if the action succeeded, False otherwise.
         """
+        bef_mc=self.mode_count
         if node_id not in self.nodes.keys():
             return False
         if node_id in self.edge_out.keys():
@@ -42,7 +43,7 @@ class DiGraph(GraphInterface):
                 self.remove_edge(ed, node_id)
             self.edge_in.pop(node_id)
         del self.nodes[node_id]
-        self.mode_count = self.mode_count + 1
+        self.mode_count = bef_mc + 1
         return True
 
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
